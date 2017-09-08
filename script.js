@@ -22,6 +22,9 @@
     var Swiper = function (container, params) {
         if (!(this instanceof Swiper)) return new Swiper(container, params);
 
+// my var for events swipe and click
+        var clientX;
+        var clientY;
 
         var defaults = {
             direction: 'horizontal',
@@ -218,14 +221,16 @@
             paginationBulletMessage: 'Go to slide {{index}}',
             // Callbacks
             runCallbacksOnInit: true,
-            onClick: function (swiper, e) {
-              console.log('onClick is working!')
-            },
             onTouchStart: function (swiper, e) {
-              console.log('onTouchStart is working!')
+              clientX = e.clientX;
+              clientY = e.clientY;
             },
             onTouchEnd: function (swiper, e) {
-              console.log('onTouchEnd is working!')
+              if (e.clientX == clientX && e.clientY == clientY) {
+                console.log('Click is working!')
+              } else {
+                console.log('onTouchEnd is working!')
+              }
             },
             /*
             Callbacks:
