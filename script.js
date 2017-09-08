@@ -217,15 +217,22 @@
             lastSlideMessage: 'This is the last slide',
             paginationBulletMessage: 'Go to slide {{index}}',
             // Callbacks
-            runCallbacksOnInit: true
+            runCallbacksOnInit: true,
+            onClick: function (swiper, e) {
+              console.log('onClick is working!')
+            },
+            onTouchStart: function (swiper, e) {
+              console.log('onTouchStart is working!')
+            },
+            onTouchEnd: function (swiper, e) {
+              console.log('onTouchEnd is working!')
+            },
             /*
             Callbacks:
             onInit: function (swiper)
             onDestroy: function (swiper)
             onBeforeResize: function (swiper)
             onAfterResize: function (swiper)
-            onClick: function (swiper, e)
-            onTap: function (swiper, e)
             onDoubleTap: function (swiper, e)
             onSliderMove: function (swiper, e)
             onSlideChangeStart: function (swiper)
@@ -234,10 +241,9 @@
             onTransitionEnd: function (swiper)
             onImagesReady: function (swiper)
             onProgress: function (swiper, progress)
-            onTouchStart: function (swiper, e)
+
             onTouchMove: function (swiper, e)
             onTouchMoveOpposite: function (swiper, e)
-            onTouchEnd: function (swiper, e)
             onReachBeginning: function (swiper)
             onReachEnd: function (swiper)
             onSetTransition: function (swiper, duration)
