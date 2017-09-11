@@ -228,8 +228,9 @@
             onTouchEnd: function (swiper, e) {
               if (e.clientX == clientX && e.clientY == clientY) {
                 console.log('Click is working!')
-              } else {
+              } else if (e.target == document.body) {
                 console.log('onTouchEnd is working!')
+                console.log(e.target)
               }
             },
             /*
