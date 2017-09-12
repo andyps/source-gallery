@@ -22,13 +22,10 @@
     var Swiper = function (container, params) {
         if (!(this instanceof Swiper)) return new Swiper(container, params);
 
-// my var for events swipe and click
-        var clientX;
-        var clientY;
 
         var defaults = {
             direction: 'horizontal',
-            touchEventsTarget: 'wrapper',
+            touchEventsTarget: 'container',
             initialSlide: 0,
             speed: 300,
             // autoplay
@@ -220,25 +217,15 @@
             lastSlideMessage: 'This is the last slide',
             paginationBulletMessage: 'Go to slide {{index}}',
             // Callbacks
-            runCallbacksOnInit: true,
-            onTouchStart: function (swiper, e) {
-              clientX = e.clientX;
-              clientY = e.clientY;
-            },
-            onTouchEnd: function (swiper, e) {
-              if (e.clientX == clientX && e.clientY == clientY) {
-                console.log('Click is working!')
-              } else if (e.target == document.body) {
-                console.log('onTouchEnd is working!')
-                console.log(e.target)
-              }
-            },
+            runCallbacksOnInit: true
             /*
             Callbacks:
             onInit: function (swiper)
             onDestroy: function (swiper)
             onBeforeResize: function (swiper)
             onAfterResize: function (swiper)
+            onClick: function (swiper, e)
+            onTap: function (swiper, e)
             onDoubleTap: function (swiper, e)
             onSliderMove: function (swiper, e)
             onSlideChangeStart: function (swiper)
@@ -247,9 +234,10 @@
             onTransitionEnd: function (swiper)
             onImagesReady: function (swiper)
             onProgress: function (swiper, progress)
-
+            onTouchStart: function (swiper, e)
             onTouchMove: function (swiper, e)
             onTouchMoveOpposite: function (swiper, e)
+            onTouchEnd: function (swiper, e)
             onReachBeginning: function (swiper)
             onReachEnd: function (swiper)
             onSetTransition: function (swiper, duration)
