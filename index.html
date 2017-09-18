@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>gallery-native-demo</title>
+  <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>gallery-native-demo</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -26,13 +26,13 @@
   <script src="script.js"></script>
   <script>
     (function() {
-      var clientX;
-      var clientY;
-      window.addEventListener('touchmove', function(e) {
+      var moving = false;
+      document.addEventListener('touchmove', function(e) {
         e.preventDefault();
       });
-      function statusCheck() {
-        document.querySelector('.status-check').innerHTML = 'Model is added!'
+      function statusCheck(msg) {
+        document.querySelector('.status-check').style.fontSize = '24px'
+        document.querySelector('.status-check').innerHTML = msg
         var delay = setTimeout(function() {
           document.querySelector('.status-check').innerHTML = ''
         }, 2000)
@@ -42,23 +42,25 @@
         centeredSlides: false,
         paginationClickable: false,
         spaceBetween: 5,
-        onTouchStart: function(swiper, e) {
-          e.preventDefault();
-          clientX = e.clientX;
-          clientY = e.clientY;
+        /**
+        @todo: prevent double tap
+        */
+        onSliderMove: function(swiper, e) {
+          moving = true;
+        },
+        onTap: function(swiper, e) {
+            if (typeof(swiper.clickedIndex) == 'number') {
+              statusCheck('Model is added by tapping!' + swiper.clickedIndex)
+            }
         },
         onTouchEnd: function(swiper, e) {
-          e.preventDefault();
-          if (e.clientX == clientX && e.clientY == clientY) {
-            statusCheck()
-            console.log('Click is working!');
-          } else if (e.target == document.body) {
-            statusCheck()
-            console.log('onTouchEnd is working!');
-          } else {
-            console.log('Nothing!');
-            return;
+          if (!moving 
+            && swiper.touches.currentX != swiper.touches.startX 
+            && swiper.touches.currentY < (window.innerHeight - swiper.height - 20)
+          ) {
+            statusCheck('Model is added by dragging!')
           }
+          moving = false;
     }
   })
   }())
